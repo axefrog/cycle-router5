@@ -1,8 +1,10 @@
-A source/sink router driver for [Cycle.js][http://cycle.js.org], based on [router5](http://router5.github.io/).
+# Cycle Router5 Driver
+
+A source/sink router driver for [Cycle.js](http://cycle.js.org), based on [router5](http://router5.github.io/).
 
 See the router5 documentation to learn how router5 works. See the Cycle.js documentation to learn how Cycle and its driver system works.
 
-Usage:
+## Usage:
 
 The following router5 methods can be called from the exposed driver object, i.e. via the `responses` object. Those methods which take a callback instead have the callback wrapped up inside
 the returned observable stream.
@@ -27,6 +29,8 @@ Router5 methods which are side-effectful (causing a state change in the router) 
 * setOption
 * start
 * stop
+
+## Example
 
 ```js
 import {makeRouterDriver} from 'cycle-router5';
