@@ -4,6 +4,12 @@ A source/sink router driver for [Cycle.js](http://cycle.js.org), based on [route
 
 See the router5 documentation to learn how router5 works. See the Cycle.js documentation to learn how Cycle and its driver system works.
 
+## Installation
+
+```
+npm install cycle-router5
+```
+
 ## Usage:
 
 The following router5 methods can be called from the exposed driver object, i.e. via the `responses` object. Those methods which take a callback instead have the callback wrapped up inside
