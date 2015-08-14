@@ -1,0 +1,35 @@
+{
+  "name": "cycle-router5",
+  "version": "0.0.1",
+  "description": "A router driver for Cycle.js, based on Router5",
+  "main": "dist/cycle-router5.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axefrog/cycle-router5"
+  },
+  "keywords": [
+    "cycle",
+    "cycle.js",
+    "cyclejs",
+    "router",
+    "router5",
+    "js"
+  ],
+  "author": "Nathan Ridley",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/axefrog/cycle-router5/issues"
+  },
+  "homepage": "https://github.com/axefrog/cycle-router5",
+  "devDependencies": {
+    "babel-core": "^5.8.22",
+    "babel-loader": "^5.3.2",
+    "webpack": "^1.11.0"
+  },
+  "dependencies": {
+    "router5": "^0.4.3"
+  }
+}
