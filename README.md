@@ -4,6 +4,8 @@ A source/sink router driver for [Cycle.js](http://cycle.js.org), based on [route
 
 See the router5 documentation to learn how router5 works. See the Cycle.js documentation to learn how Cycle and its driver system works.
 
+**Note:** I have adapted some of the code from [Visionmedia's page.js router](https://github.com/visionmedia/page.js) to handle automatic intercepting of link clicks. When a link is clicked, a number of verifications are initially performed to validate that the link matches a registered route. If so, the action is cancelled and router5 is called upon to enact the route transition. If no route is matched, the click resolves normally. If this behaviour causes problems for you, please open an issue and I'll add some additional code to make this behaviour optional. Alternatively, feel free to submit a pull request.
+
 ## Installation
 
 ```
