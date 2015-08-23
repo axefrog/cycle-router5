@@ -1,6 +1,6 @@
 {
   "name": "cycle-router5",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "A router driver for Cycle.js, based on Router5",
   "main": "dist/driver.js",
   "scripts": {

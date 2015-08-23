@@ -53,13 +53,14 @@ function createDone$(router, fname, args) {
 export function makeRouterDriver(routes, options) {
   let router = new Router5(routes, options);
 
-  var clickEventName = (typeof document !== 'undefined') && document.ontouchstart ? 'touchstart' : 'click';
-  var clickHandler = makeOnClick(options.base, options.useHash,
-    path => router.matchPath(path),
-    ({name, params}) => router.navigate(name, params)
-  );
-
-  document.addEventListener(clickEventName, clickHandler, false);
+  if(!options || !options.disableClickHandler) {
+    var clickEventName = (typeof document !== 'undefined') && document.ontouchstart ? 'touchstart' : 'click';
+    var clickHandler = makeOnClick(options.base, options.useHash,
+      path => router.matchPath(path),
+      ({name, params}) => router.navigate(name, params)
+    );
+    document.addEventListener(clickEventName, clickHandler, false);
+  }
   
   // The request stream allows certain synchronous [compatible] methods to be called in the form ['funcName', ...args].
   return function(request$) {

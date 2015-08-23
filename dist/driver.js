@@ -1,32 +1,32 @@
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+var _toArray = function (arr) { return Array.isArray(arr) ? arr : Array.from(arr); };
+
+exports.makeRouterDriver = makeRouterDriver;
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.makeRouterDriver = makeRouterDriver;
 
-function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); }
-
-var _router5 = require('router5');
+var Router5 = require("router5").Router5;
 
 // The set of valid sink functions includes synchronous state-affecting router functions that do not require a callback
 // and which do not have a significant return value other than the router object itself.
-var validSinkFuncs = ['add', 'addNode', 'canActivate', 'deregisterComponent', 'navigate', 'registerComponent', 'setOption', 'start', 'stop'];
+var validSinkFuncs = ["add", "addNode", "canActivate", "deregisterComponent", "navigate", "registerComponent", "setOption", "start", "stop"];
 
 function validateAndRemapSinkArgument(arg) {
   if (!arg || !arg.length) {
     return null;
   };
-  if (typeof arg === 'string') {
+  if (typeof arg === "string") {
     arg = [arg];
   } else if (!(arg instanceof Array)) {
-    throw new Error('A Router5 sink argument should be a string or an array of arguments, starting with a function name');
+    throw new Error("A Router5 sink argument should be a string or an array of arguments, starting with a function name");
   }
   if (validSinkFuncs.indexOf(arg[0]) === -1) {
-    throw new Error('"' + arg[0] + '" is not the name of a valid sink function call for the Router5 driver');
+    throw new Error("\"" + arg[0] + "\" is not the name of a valid sink function call for the Router5 driver");
   }
-  if (typeof arg[arg.length - 1] === 'function') {
-    throw new Error('Router5 invocations specifying callbacks should be made using the source (responses) object');
+  if (typeof arg[arg.length - 1] === "function") {
+    throw new Error("Router5 invocations specifying callbacks should be made using the source (responses) object");
   }
   return arg;
 }
@@ -57,27 +57,28 @@ function createDone$(router, fname, args) {
 }
 
 function makeRouterDriver(routes, options) {
-  var router = new _router5.Router5(routes, options);
+  var router = new Router5(routes, options);
 
-  var clickEventName = typeof document !== 'undefined' && document.ontouchstart ? 'touchstart' : 'click';
-  var clickHandler = makeOnClick(options.base, options.useHash, function (path) {
-    return router.matchPath(path);
-  }, function (_ref) {
-    var name = _ref.name;
-    var params = _ref.params;
-    return router.navigate(name, params);
-  });
-
-  document.addEventListener(clickEventName, clickHandler, false);
+  if (!options || !options.disableClickHandler) {
+    var clickEventName = typeof document !== "undefined" && document.ontouchstart ? "touchstart" : "click";
+    var clickHandler = makeOnClick(options.base, options.useHash, function (path) {
+      return router.matchPath(path);
+    }, function (_ref) {
+      var name = _ref.name;
+      var params = _ref.params;
+      return router.navigate(name, params);
+    });
+    document.addEventListener(clickEventName, clickHandler, false);
+  }
 
   // The request stream allows certain synchronous [compatible] methods to be called in the form ['funcName', ...args].
   return function (request$) {
-    request$.map(validateAndRemapSinkArgument).subscribe(function (_ref2) {
-      var _ref22 = _toArray(_ref2);
+    request$.map(validateAndRemapSinkArgument).subscribe(function (_ref) {
+      var _ref2 = _toArray(_ref);
 
-      var fname = _ref22[0];
+      var fname = _ref2[0];
 
-      var args = _ref22.slice(1);
+      var args = _ref2.slice(1);
 
       router[fname].apply(router, args);
     }, function (err) {
@@ -85,63 +86,62 @@ function makeRouterDriver(routes, options) {
     });
 
     return {
-      start: function start() {
+      start: function () {
         for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
           args[_key] = arguments[_key];
         }
 
-        return createDone$(router, 'start', args);
+        return createDone$(router, "start", args);
       },
-      addListener: function addListener() {
-        for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-          args[_key2] = arguments[_key2];
+      addListener: function () {
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
         }
 
-        return createStateChange$(router, 'addListener', args);
+        return createStateChange$(router, "addListener", args);
       },
-      addNodeListener: function addNodeListener() {
-        for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-          args[_key3] = arguments[_key3];
+      addNodeListener: function () {
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
         }
 
-        return createStateChange$(router, 'addNodeListener', args);
+        return createStateChange$(router, "addNodeListener", args);
       },
-      addRouteListener: function addRouteListener() {
-        for (var _len4 = arguments.length, args = Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
-          args[_key4] = arguments[_key4];
+      addRouteListener: function () {
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
         }
 
-        return createStateChange$(router, 'addRouteListener', args);
+        return createStateChange$(router, "addRouteListener", args);
       },
-      navigate: function navigate() {
-        for (var _len5 = arguments.length, args = Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
-          args[_key5] = arguments[_key5];
+      navigate: function () {
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
         }
 
-        return createDone$(router, 'navigate', args);
+        return createDone$(router, "navigate", args);
       },
-      matchPath: function matchPath() {
-        for (var _len6 = arguments.length, args = Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
-          args[_key6] = arguments[_key6];
+      matchPath: function () {
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
         }
 
         return router.matchPath.apply(router, args);
       },
-      buildUrl: function buildUrl() {
-        for (var _len7 = arguments.length, args = Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
-          args[_key7] = arguments[_key7];
+      buildUrl: function () {
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
         }
 
         return router.buildUrl.apply(router, args);
       },
-      buildPath: function buildPath() {
-        for (var _len8 = arguments.length, args = Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {
-          args[_key8] = arguments[_key8];
+      buildPath: function () {
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
         }
 
         return router.buildPath.apply(router, args);
-      }
-    };
+      } };
   };
 }
 
@@ -161,52 +161,54 @@ var makeOnClick = function makeOnClick(base, hashbang, match, callback) {
    * Check if `href` is the same origin.
    */
   function sameOrigin(href) {
-    var origin = location.protocol + '//' + location.hostname;
-    if (location.port) origin += ':' + location.port;
+    var origin = location.protocol + "//" + location.hostname;
+    if (location.port) origin += ":" + location.port;
     return href && 0 === href.indexOf(origin);
   }
 
   return function onclick(e) {
 
-    if (1 !== which(e)) return;
-    if (e.metaKey || e.ctrlKey || e.shiftKey) return;
-    if (e.defaultPrevented) return;
-
-    // ensure link
+    if (1 !== which(e)) {
+      return;
+    }if (e.metaKey || e.ctrlKey || e.shiftKey) {
+      return;
+    }if (e.defaultPrevented) {
+      return;
+    } // ensure link
     var el = e.target;
-    while (el && 'A' !== el.nodeName) el = el.parentNode;
-    if (!el || 'A' !== el.nodeName) return;
-
-    // Ignore if tag has
+    while (el && "A" !== el.nodeName) el = el.parentNode;
+    if (!el || "A" !== el.nodeName) {
+      return;
+    } // Ignore if tag has
     // 1. "download" attribute
     // 2. rel="external" attribute
-    if (el.hasAttribute('download') || el.getAttribute('rel') === 'external') return;
-
-    // ensure non-hash for the same path
-    var link = el.getAttribute('href');
-    if (!hashbang && el.pathname === location.pathname && (el.hash || '#' === link)) return;
-
-    // Check for unexpected protocols in the href, e.g. (mailto: or skype:)
-    if (link && /^[a-z]+:/.test(link) && /^https?/.test(link)) return;
-
-    // check target
-    if (el.target) return;
-
-    // x-origin
-    if (!sameOrigin(el.href)) return;
-
-    // rebuild path
-    var path = el.pathname + el.search + (el.hash || '');
+    if (el.hasAttribute("download") || el.getAttribute("rel") === "external") {
+      return;
+    } // ensure non-hash for the same path
+    var link = el.getAttribute("href");
+    if (!hashbang && el.pathname === location.pathname && (el.hash || "#" === link)) {
+      return;
+    } // Check for unexpected protocols in the href, e.g. (mailto: or skype:)
+    if (link && /^[a-z]+:/.test(link) && /^https?/.test(link)) {
+      return;
+    } // check target
+    if (el.target) {
+      return;
+    } // x-origin
+    if (!sameOrigin(el.href)) {
+      return;
+    } // rebuild path
+    var path = el.pathname + el.search + (el.hash || "");
 
     // strip leading "/[drive letter]:" on NW.js on Windows
-    if (typeof process !== 'undefined' && path.match(/^\/[a-zA-Z]:\//)) {
-      path = path.replace(/^\/[a-zA-Z]:\//, '/');
+    if (typeof process !== "undefined" && path.match(/^\/[a-zA-Z]:\//)) {
+      path = path.replace(/^\/[a-zA-Z]:\//, "/");
     }
 
     var route = match(path);
-    if (!route) return;
-
-    e.preventDefault();
+    if (!route) {
+      return;
+    }e.preventDefault();
 
     callback(route);
   };
