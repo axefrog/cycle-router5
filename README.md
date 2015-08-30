@@ -88,10 +88,10 @@ function routing(intent) {
 }
 
 function main(sources) {
-  var intent = intent(sources);
+  var intentions = intent(sources);
   return {
-    DOM: view(model(intent)),
-    router: routing(intent)
+    DOM: view(model(intentions)),
+    router: routing(intentions)
   };
 }
 
