@@ -2,11 +2,6 @@
 
 var _toArray = function (arr) { return Array.isArray(arr) ? arr : Array.from(arr); };
 
-exports.makeRouterDriver = makeRouterDriver;
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var Router5 = require("router5").Router5;
 
 // The set of valid sink functions includes synchronous state-affecting router functions that do not require a callback
@@ -212,4 +207,8 @@ var makeOnClick = function makeOnClick(base, hashbang, match, callback) {
 
     callback(route);
   };
+};
+
+module.exports = {
+  makeRouterDriver: makeRouterDriver
 };
