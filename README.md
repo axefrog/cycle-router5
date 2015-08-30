@@ -82,16 +82,16 @@ function view(model$) {
   });
 }
 
-function routing(intent) {
-  return intent.clickStart$
+function routing(actions) {
+  return actions.clickStart$
     .map(ev => 'start'); // could also be ['start'] or ['start', arg1, ...]
 }
 
 function main(sources) {
-  var intent = intent(sources);
+  var actions = intent(sources);
   return {
-    DOM: view(model(intent)),
-    router: routing(intent)
+    DOM: view(model(actions)),
+    router: routing(actions)
   };
 }
 
