@@ -76,6 +76,7 @@ function makeRouterDriver(routes, options) {
       addListener: (...args) => createStateChange$(router, 'addListener', args),
       addNodeListener: (...args) => createStateChange$(router, 'addNodeListener', args),
       addRouteListener: (...args) => createStateChange$(router, 'addRouteListener', args),
+      areStatesDescendants: (...args) => router.areStatesDescendants.apply(router, args),
       navigate: (...args) => createDone$(router, 'navigate', args),
       matchPath: (...args) => router.matchPath.apply(router, args),
       buildUrl: (...args) => router.buildUrl.apply(router, args),

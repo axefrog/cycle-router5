@@ -109,6 +109,13 @@ function makeRouterDriver(routes, options) {
 
         return createStateChange$(router, "addRouteListener", args);
       },
+      areStatesDescendants: function () {
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+
+        return router.areStatesDescendants.apply(router, args);
+      },
       navigate: function () {
         for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
           args[_key] = arguments[_key];
