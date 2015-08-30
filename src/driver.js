@@ -50,7 +50,7 @@ function createDone$(router, fname, args) {
   });
 }
 
-export function makeRouterDriver(routes, options) {
+function makeRouterDriver(routes, options) {
   let router = new Router5(routes, options);
 
   if(!options || !options.disableClickHandler) {
@@ -150,4 +150,8 @@ var makeOnClick = function(base, hashbang, match, callback) {
     callback(route);
   }
 
+};
+
+export default {
+  makeRouterDriver
 };
