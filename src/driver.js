@@ -1,4 +1,5 @@
 import {Router5} from 'router5';
+import Rx from 'rx';
 
 // The set of valid sink functions includes synchronous state-affecting router functions that do not require a callback
 // and which do not have a significant return value other than the router object itself.
