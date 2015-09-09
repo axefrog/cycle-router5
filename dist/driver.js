@@ -3,6 +3,7 @@
 var _toArray = function (arr) { return Array.isArray(arr) ? arr : Array.from(arr); };
 
 var Router5 = require("router5").Router5;
+var Rx = require("rx");
 
 // The set of valid sink functions includes synchronous state-affecting router functions that do not require a callback
 // and which do not have a significant return value other than the router object itself.
