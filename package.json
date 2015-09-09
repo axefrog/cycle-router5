@@ -32,5 +32,8 @@
   "dependencies": {
     "router5": "^0.5.0",
     "rx": "^3.1.0"
+  },
+  "peerDependencies": {
+    "@cycle/core": "^3.0"
   }
 }
